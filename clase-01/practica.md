@@ -9,9 +9,12 @@
 
 ## 2. Superficie elegida
 - Elegí (chat o cowork): Cowork
+- Herramientas de IA usadas: Claude (Cowork) para recorrer el sitio y escribir los casos, y Gemini (Gemini Flash 3.6, app de Gemini en modo chat) para las preguntas de la sección 3.
 - Por qué: Cowork puede abrir la página real en el navegador, recorrer el formulario y probar los datos antes de escribir los casos, en vez de suponer cómo funciona. Eso reduce los inventos (mensajes de error, reglas) y me deja el resultado verificado contra el sitio.
 
 ## 3. Preguntas a Gemini
+- Superficie y modelo: app de Gemini, modo chat, Gemini Flash 3.6.
+
 | # | Pregunta | Respuesta (resumen) | ¿Acierto o error/invento? |
 |---|----------|---------------------|---------------------------|
 | 1 | ¿Qué campos pide el formulario de registro de https://minimoda-navy.vercel.app/registro? | Nombre (o usuario), Email, Edad (o fecha de nacimiento), Contraseña, Confirmación "(si aplica)", checkbox de términos. | Error parcial: omite **País**, duda entre alternativas ("o fecha de nacimiento", "si aplica") en vez de leer la página. |
@@ -89,13 +92,13 @@ IDs en Qase: MINIMODA-6, MINIMODA-9 y MINIMODA-10.
 - Evidencia: `evidencias/qase-MM-10-registro-edad-12.png`
 
 ## 7. Mapa del harness
-| Pieza | En lo que usé |
-|-------|---------------|
-| Modelo | Claude Opus 5.5 (`claude-opus-5-5`) |
-| App | Claude, superficie Cowork desde la extensión Claude in Chrome |
-| Harness | Claude Agent SDK (el loop de agente de Cowork: herramientas de navegador, archivos y shell) |
-| MCP | claude-in-chrome (navegar, leer la página, ejecutar JS, capturas) |
-| Skill | Ninguna |
+| Pieza | Claude (secciones 4 a 6) | Gemini (sección 3) |
+|-------|---------------|---------------|
+| Modelo | Claude Opus 5.5 (`claude-opus-5-5`) | Gemini Flash 3.6 |
+| App | Claude, superficie Cowork desde la extensión Claude in Chrome | App de Gemini, modo chat |
+| Harness | Claude Agent SDK (el loop de agente de Cowork: herramientas de navegador, archivos y shell) | El chat de la app de Gemini (sin modo agente) |
+| MCP | claude-in-chrome (navegar, leer la página, ejecutar JS, capturas) | Ninguno |
+| Skill | Ninguna | Ninguna |
 
 ## 8. Entrega
 - Link de tu repo (pegalo también en el Telegram): https://github.com/micaelajara/minimoda-test
