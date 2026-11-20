@@ -1,0 +1,21 @@
+meta {
+  name: CP05 prep · agregar producto 3 x1 al carrito del pedido
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/carritos/{{carritoPedidoId}}/items
+  body: json
+  auth: none
+}
+
+body:json {
+  { "productoId": 3, "cantidad": 1 }
+}
+
+tests {
+  test("CP05 prep · 201", function () {
+    expect(res.getStatus()).to.equal(201);
+  });
+}

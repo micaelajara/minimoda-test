@@ -1,0 +1,32 @@
+meta {
+  name: CP05b · repetir el mismo pedido con la misma clave (idempotencia, 2.ª vez)
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/pedidos
+  body: json
+  auth: none
+}
+
+headers {
+  Idempotency-Key: {{idemKey}}
+}
+
+body:json {
+  { "carritoId": "{{carritoPedidoId}}", "email": "ana@ejemplo.com", "tarjeta": "4111111111111111" }
+}
+
+tests {
+  // Contrato: paths./pedidos.post.description → «misma clave con el mismo cuerpo: devuelve el mismo
+  //           pedido con el encabezado Idempotent-Replayed: true y no crea otro»
+  //           paths./pedidos.post.responses.201.headers.Idempotent-Replayed
+  test("CP05 · devuelve 201 con el MISMO pedido", function () {
+    expect(res.getStatus()).to.equal(201);
+    expect(res.getBody().id).to.equal(bru.getVar("pedidoId"));
+  });
+  test("CP05 · trae Idempotent-Replayed: true", function () {
+    expect(res.getHeader("idempotent-replayed")).to.equal("true");
+  });
+}

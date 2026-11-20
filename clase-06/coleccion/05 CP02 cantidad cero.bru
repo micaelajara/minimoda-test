@@ -1,0 +1,26 @@
+meta {
+  name: CP02 · cantidad 0 (negativo)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/carritos/{{carritoId}}/items
+  body: json
+  auth: none
+}
+
+body:json {
+  { "productoId": 4, "cantidad": 0 }
+}
+
+tests {
+  // Contrato: components.schemas.NuevoItem.properties.cantidad.minimum = 1
+  //           paths./carritos/{carritoId}/items.post.responses.400 → esquema Error
+  test("CP02 · 400 si la cantidad es 0", function () {
+    expect(res.getStatus()).to.equal(400);
+  });
+  test("CP02 · el cuerpo respeta el esquema Error", function () {
+    expect(res.getBody()).to.include.keys("codigo", "mensaje", "detalles");
+  });
+}

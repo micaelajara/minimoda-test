@@ -1,0 +1,26 @@
+meta {
+  name: CP04c · leer el carrito creado (secuencia, paso 3)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/carritos/{{carritoId}}
+  body: none
+  auth: none
+}
+
+tests {
+  // Contrato: paths./carritos/{carritoId}.get.responses.200 → esquema Carrito / ItemCarrito
+  test("CP04 · 200 y devuelve el mismo carrito con 1 item", function () {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().id).to.equal(bru.getVar("carritoId"));
+    expect(res.getBody().items).to.have.lengthOf(1);
+  });
+  test("CP04 · precioUnitario es un número y subtotal = precio x cantidad", function () {
+    const item = res.getBody().items[0];
+    expect(item.precioUnitario).to.be.a("number");
+    expect(item.subtotal).to.equal(item.precioUnitario * item.cantidad);
+    expect(res.getBody().subtotal).to.equal(item.subtotal);
+  });
+}

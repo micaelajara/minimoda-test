@@ -1,0 +1,29 @@
+meta {
+  name: CP06 · q de 1 caracter devuelve un error con el formato del contrato (formato de error)
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/productos/buscar?q=a
+  body: none
+  auth: none
+}
+
+params:query {
+  q: a
+}
+
+tests {
+  // Contrato: paths./productos/buscar.get.responses.400 → components.schemas.Error
+  //           Error.required = [codigo, mensaje, detalles]; detalles es array de strings
+  test("CP06 · 400 si q tiene menos de 2 caracteres", function () {
+    expect(res.getStatus()).to.equal(400);
+  });
+  test("CP06 · codigo y mensaje son texto, detalles es una lista", function () {
+    const b = res.getBody();
+    expect(b.codigo).to.be.a("string");
+    expect(b.mensaje).to.be.a("string");
+    expect(b.detalles).to.be.an("array");
+  });
+}

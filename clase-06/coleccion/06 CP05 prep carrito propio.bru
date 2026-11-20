@@ -1,0 +1,21 @@
+meta {
+  name: CP05 prep · carrito propio para el pedido (no compartir datos con otros casos)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/carritos
+  body: none
+  auth: none
+}
+
+script:post-response {
+  bru.setVar("carritoPedidoId", res.getBody().id);
+}
+
+tests {
+  test("CP05 prep · 201", function () {
+    expect(res.getStatus()).to.equal(201);
+  });
+}

@@ -1,0 +1,36 @@
+meta {
+  name: CP05a · pedido con Idempotency-Key (idempotencia, 1.ª vez)
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/pedidos
+  body: json
+  auth: none
+}
+
+headers {
+  Idempotency-Key: {{idemKey}}
+}
+
+body:json {
+  { "carritoId": "{{carritoPedidoId}}", "email": "ana@ejemplo.com", "tarjeta": "4111111111111111" }
+}
+
+script:pre-request {
+  // Clave nueva en cada corrida, para que la colección se pueda repetir
+  bru.setVar("idemKey", "clase6-" + Date.now());
+}
+
+script:post-response {
+  bru.setVar("pedidoId", res.getBody().id);
+}
+
+tests {
+  // Contrato: paths./pedidos.post.responses.201 → esquema Pedido (estado enum: confirmado)
+  test("CP05a · 201 y pedido confirmado", function () {
+    expect(res.getStatus()).to.equal(201);
+    expect(res.getBody().estado).to.equal("confirmado");
+  });
+}
