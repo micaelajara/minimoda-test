@@ -1,0 +1,14 @@
+"title","description","preconditions","suite","priority","severity","type","steps_actions","steps_result"
+"Checkout: no permite confirmar con el carrito vacío","Cubre: confirmación de compra sin prendas. Fuentes del kit: manual-de-uso.pdf §3, criterios-aceptacion-sprint-14.pdf HIST-18, CHANGELOG.md 0.9.1.","Ventana de incógnito (carrito vacío). Entrar directo a https://minimoda-navy.vercel.app/checkout. El Resumen dice «Todavía no hay prendas en el carrito».","Clase 5 · Exploratorio MiniModa","high","major","negative","1. Completar Nombre: Ana Prueba, Dirección: Calle Falsa 123, Email: ana.prueba@example.com, País: Argentina
+2. Completar Tarjeta: 4111111111111111, Vencimiento: 12/30, CVV: 123
+3. Clic en «Confirmar compra»","1. Los campos aceptan los datos
+2. Los campos aceptan los datos
+3. Según el manual §3: «No se puede confirmar una compra si el carrito está vacío». No aparece «Compra confirmada»."
+"Checkout: envío gratis en Argentina con subtotal mayor a $80.000","Cubre: umbral de envío gratis. Fuentes del kit: CHANGELOG.md 0.9.0 y chat-lucas-dev.png (12/10) dicen $80.000, igual que el banner de la app. manual-de-uso.pdf §3 y criterios HIST-18 dicen $50.000 (desactualizados según el chat).","Carrito vacío. Entrar a https://minimoda-navy.vercel.app/tienda","Clase 5 · Exploratorio MiniModa","high","major","functional","1. En «Conjunto Deportivo Comodín» ($27.800), clic en «Agregar al carrito» 3 veces
+2. Ir al checkout con el link «Checkout» del menú, sin recargar la página
+3. País de envío: Argentina. Mirar el Resumen","1. El carrito suma $83.400
+2. El Resumen muestra las 3 prendas
+3. Según CHANGELOG 0.9.0 y el banner: «Envío gratis desde $80.000». Envío $0, Estimado $83.400."
+"Tienda: un producto sin stock se muestra con el botón deshabilitado","Cubre: visualización de productos sin stock. Fuentes en conflicto: manual-de-uso.pdf §1 («las prendas sin stock no se listan») vs chat-lucas-dev.png 12/10 («los seguimos mostrando con el botón deshabilitado»).","Entrar a https://minimoda-navy.vercel.app/tienda sin filtros.","Clase 5 · Exploratorio MiniModa","medium","normal","exploratory","1. Buscar la tarjeta «Enterito de Algodón Nubes»
+2. Mirar el botón de la tarjeta","1. La tarjeta aparece en el listado
+2. Según el chat de Lucas (12/10): el botón dice «Sin stock» y está deshabilitado."
