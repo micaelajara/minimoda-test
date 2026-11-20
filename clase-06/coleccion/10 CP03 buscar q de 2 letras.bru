@@ -1,0 +1,27 @@
+meta {
+  name: CP03 · buscar con q de 2 caracteres (valor límite)
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/productos/buscar?q=re
+  body: none
+  auth: none
+}
+
+params:query {
+  q: re
+}
+
+tests {
+  // Contrato: paths./productos/buscar.get.parameters.q.schema.minLength = 2 (el borde es válido)
+  //           paths./productos/buscar.get.responses.200 → esquema ResultadoBusqueda
+  test("CP03 · 200 con q de exactamente 2 caracteres", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+  test("CP03 · respeta ResultadoBusqueda (q, total, productos)", function () {
+    expect(res.getBody()).to.include.keys("q", "total", "productos");
+    expect(res.getBody().productos).to.be.an("array");
+  });
+}

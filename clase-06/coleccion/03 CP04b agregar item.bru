@@ -1,0 +1,25 @@
+meta {
+  name: CP04b · agregar producto 3 x1 (secuencia, paso 2)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/carritos/{{carritoId}}/items
+  body: json
+  auth: none
+}
+
+body:json {
+  { "productoId": 3, "cantidad": 1 }
+}
+
+tests {
+  // Contrato: paths./carritos/{carritoId}/items.post.responses.201 → Carrito completo
+  test("CP04b · 201 y el item aparece en el carrito", function () {
+    expect(res.getStatus()).to.equal(201);
+    const item = res.getBody().items.find(i => i.productoId === 3);
+    expect(item).to.exist;
+    expect(item.cantidad).to.equal(1);
+  });
+}

@@ -1,0 +1,63 @@
+01 CP01 producto inexistente (200 OK) - 26 ms
+Tests
+   ✕ CP01 · 404 si el producto no existe
+      expected 200 to equal 404
+   ✕ CP01 · el cuerpo respeta el esquema Error
+      expected { producto: null } to contain keys 'codigo', 'mensaje', and 'detalles'
+02 CP04a crear carrito (201 Created) - 14 ms
+Tests
+   ✓ CP04a · 201 y carrito abierto y vacío
+03 CP04b agregar item (201 Created) - 3 ms
+Tests
+   ✓ CP04b · 201 y el item aparece en el carrito
+04 CP04c leer carrito (200 OK) - 2 ms
+Tests
+   ✕ CP04 · precioUnitario es un número y subtotal = precio x cantidad
+      expected '5600' to be a number
+   ✓ CP04 · 200 y devuelve el mismo carrito con 1 item
+05 CP02 cantidad cero (201 Created) - 2 ms
+Tests
+   ✕ CP02 · 400 si la cantidad es 0
+      expected 201 to equal 400
+   ✕ CP02 · el cuerpo respeta el esquema Error
+      expected { id: 'c-4', estado: 'abierto', …(2) } to contain keys 'codigo', 'mensaje', and 'detalles'
+06 CP05 prep carrito propio (201 Created) - 6 ms
+Tests
+   ✓ CP05 prep · 201
+07 CP05 prep agregar item (201 Created) - 2 ms
+Tests
+   ✓ CP05 prep · 201
+08 CP05a pedido con clave (201 Created) - 3 ms
+Tests
+   ✓ CP05a · 201 y pedido confirmado
+09 CP05b repetir pedido (201 Created) - 3 ms
+Tests
+   ✓ CP05 · devuelve 201 con el MISMO pedido
+   ✓ CP05 · trae Idempotent-Replayed: true
+10 CP03 buscar q de 2 letras (200 OK) - 31 ms
+Tests
+   ✓ CP03 · 200 con q de exactamente 2 caracteres
+   ✓ CP03 · respeta ResultadoBusqueda (q, total, productos)
+11 CP06 formato de error (400 Bad Request) - 6 ms
+Tests
+   ✓ CP06 · 400 si q tiene menos de 2 caracteres
+   ✓ CP06 · codigo y mensaje son texto, detalles es una lista
+12 B01 buscar remera (200 OK) - 33 ms
+Tests
+   ✓ B01 · 200
+   ✓ B01 · productos es una lista
+
+📊 Execution Summary
+┌───────────────┬─────────────────────────┐
+│ Metric        │         Result          │
+├───────────────┼─────────────────────────┤
+│ Status        │         ✗ FAIL          │
+├───────────────┼─────────────────────────┤
+│ Requests      │ 12 (9 Passed, 3 Failed) │
+├───────────────┼─────────────────────────┤
+│ Tests         │          14/19          │
+├───────────────┼─────────────────────────┤
+│ Assertions    │           0/0           │
+├───────────────┼─────────────────────────┤
+│ Duration (ms) │          3220           │
+└───────────────┴─────────────────────────┘

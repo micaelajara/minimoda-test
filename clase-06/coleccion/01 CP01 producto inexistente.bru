@@ -1,0 +1,21 @@
+meta {
+  name: CP01 · producto inexistente (negativo)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/productos/999
+  body: none
+  auth: none
+}
+
+tests {
+  // Contrato: paths./productos/{id}.get.responses.404 → esquema Error
+  test("CP01 · 404 si el producto no existe", function () {
+    expect(res.getStatus()).to.equal(404);
+  });
+  test("CP01 · el cuerpo respeta el esquema Error", function () {
+    expect(res.getBody()).to.include.keys("codigo", "mensaje", "detalles");
+  });
+}

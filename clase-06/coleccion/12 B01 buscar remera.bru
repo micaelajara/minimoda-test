@@ -1,0 +1,25 @@
+meta {
+  name: B01 · buscar remera (endpoint de la prueba de carga)
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{baseUrl}}/productos/buscar?q=remera
+  body: none
+  auth: none
+}
+
+params:query {
+  q: remera
+}
+
+tests {
+  // Contrato: paths./productos/buscar.get.responses.200 → ResultadoBusqueda.productos (array)
+  test("B01 · 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+  test("B01 · productos es una lista", function () {
+    expect(res.getBody().productos).to.be.an("array");
+  });
+}
