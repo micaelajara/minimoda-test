@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Edit|Write|Bash",
+        "hooks": [ { "type": "command", "command": "node scripts/pre-tests.cjs" } ] }
+    ],
+    "PostToolUse": [
+      { "matcher": "Edit|Write",
+        "hooks": [ { "type": "command", "command": "node scripts/post-tests.cjs" } ] }
+    ]
+  }
+}
